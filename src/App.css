@@ -1,0 +1,3814 @@
+/* ===style.css — Hive Construction Ventures ===== */
+
+
+/* ========== COLOR VARIABLES ========== */
+/*  palette — teal accent, orange-red for highlights, navy primary */
+:root {
+  --primary-color: #0b2439;       /* Dark navy — headings, nav bg */
+  --accent-color: #27ea9c;        /* Teal green — buttons, tags, borders */
+  --highlight-color: #ff5c35;     /* Orange-red — hero text highlight, special words */
+  --light-grey: #f4f6f9;
+  --dark-grey: #7f8c8d;
+  --white: #ffffff;
+  --transition-speed: 0.3s;
+}
+
+
+/* ========== RESET & BASE ========== */
+/* Remove default browser margin/padding, set box model */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+/* Grid layout — nav / main / footer rows */
+body {
+  background-color: var(--light-grey);
+  color: var(--primary-color);
+  line-height: 1.6;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  width: 100%;           /* ADD THIS */
+  max-width: 100%;       /* CHANGE from 120rem to 100% */
+  margin: 0 auto;
+  overflow-x: hidden;    /* ADD THIS — prevents horizontal scroll */
+}
+
+/* ========== TYPOGRAPHY ========== */
+h1, h2, h3 {
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+/* Default link style — white, no underline */
+a {
+  text-decoration: none;
+  color: var(--white);
+  transition: color var(--transition-speed);
+}
+
+
+/* ========== STICKY NAVIGATION ========== */
+/* Stays at top of viewport while scrolling */
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--primary-color);
+  padding: 1.6rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+  font-size: 1.8rem;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* HIVE — bold white */
+.logo .hive {
+  font-weight: 800;
+  color: var(--white);
+  
+}
+
+/* Ventures — accent red */
+.logo .ventures {
+  font-weight: 500;
+  color: var(--accent-color);
+}
+
+.logo:hover {
+  opacity: 0.85;
+  transition: 0.3s;
+}
+
+/* Horizontal nav list */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+/* Shared style for nav links and dropdown button */
+/* Nav links slightly smaller — prevents overcrowding with 6 items */
+.nav-links a, .dropbtn {
+  font-size: 0.95rem; /* reduced from 1.125rem */
+  font-weight: 400;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  color: var(--white);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color var(--transition-speed);
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Dropdown button styling */
+.dropbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 0.2rem;
+}
+
+.nav-links a:hover, .dropbtn:hover {
+  color: var(--accent-color);
+}
+
+/* Active nav link — red with underline */
+.nav-links a.active {
+  color: var(--accent-color);
+  border-bottom: 2px solid var(--accent-color);
+}
+
+
+/* ========== DROPDOWN ========== */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Hidden by default, shown on hover or active class */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: var(--primary-color);
+  min-width: 7.5rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  border-radius: 4px;
+  overflow: hidden;
+  top: 100%;
+  left: 0;
+}
+
+
+
+.dropdown-content a {
+  color: rgb(249, 249, 249);
+  padding: 0.75rem 1rem;
+  display: block;
+  white-space: nowrap;
+}
+
+.dropdown-content a:hover {
+  background-color: var(--light-grey);
+  color: #12122f;
+}
+
+/* Mobile — show dropdown via JS active class */
+.dropdown.active .dropdown-content {
+  display: block;
+}
+
+.arrow {
+  font-size: 1.4rem;
+  margin-left: 5px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 0.6rem;
+  margin-bottom: -0.25rem;
+  transition: transform 0.3s ease;
+}
+
+/* rotate when active (mobile click) */
+.dropdown.active .arrow {
+  transform: rotateX(360deg);
+}
+
+/* rotate on hover (desktop) */
+.dropdown:hover .arrow {
+  transform: rotateX(360deg);
+}
+
+
+/* ========== PAGE SECTIONS ========== */
+/* All sections hidden by default — JS adds active to show */
+.page-section {
+  display: none;/* Hide all sections by default */
+  padding: 8rem 0rem 4rem 0rem; /* CHANGED: top padding increased to 8rem, removed side padding */
+  animation: fadeIn var(--transition-speed) ease-in-out;
+
+}
+
+#home {
+  padding-top: 0 !important;  /* Remove top padding so video starts at very top */
+}
+
+/* Login/Register sections — less top padding to move forms up */
+.auth-section {
+  padding-top: 8rem;
+}
+ 
+.page-section.active {
+  display: block;     /* Show active section */
+}
+
+/* Override for home and about - no top padding */
+#home.page-section,
+#about.page-section {
+  padding-top: 0 !important;
+}
+
+/* ========== SECTION CONTENT CONTAINER ========== */
+/* Only apply to specific sections that need width control */
+#properties .property-grid,
+#dashboard .dashboard-content,
+.welcome-section,
+.whatwedo-section {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}  
+
+
+
+
+/* Fade + slide up animation when section becomes active */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ========== HERO VIDEO SECTION ========== */
+/* Full viewport video background with overlay, arrows, and animated text */
+
+/* Wrapper fills full viewport height — positions video + content together */
+.hero-video-wrap {
+    position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 0;
+  right: 0;
+
+}
+
+/* Video stretches to cover full viewport, no distortion */
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Semi-dark overlay so text stays readable over any video */
+.hero-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 36, 57, 0.40);
+  z-index: 1;
+}
+
+/* Content wrapper — holds all text and buttons, centered over video */
+.hero-content {
+  position: absolute;
+  top: 57%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  text-align: center;
+  width: 90%;
+  max-width: 60rem;
+  padding: 2rem;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+/* Visible state added by JS after intro animation */
+.hero-content.visible {
+  opacity: 1;
+}
+
+/* Mobile - keep hero content centered over video */
+@media (max-width: 768px) {
+  .hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    padding: 1.1rem;
+  }
+  
+  .hero-heading {
+    font-size: 2.1rem !important;
+  }
+  
+  .hero-pre {
+    font-size: 0.85rem !important;
+  }
+  
+  .hero-sub {
+    font-size: 0.9rem !important;
+  }
+  
+  .hero-content .cta-btn {
+    font-size: 0.95rem !important;
+    padding: 0.7rem 1.3rem !important;
+    
+  }
+  
+  .hero-video-wrap {
+    height: 100vh;
+  }
+  
+  .about-slide-content {
+    margin-top: 6rem;
+  }
+}
+
+
+/* Small pre-heading above main title */
+.hero-pre {
+  font-size: 0.8rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.73); /* changed from 0.6 to 0.73 - brighter */
+  margin-bottom: 1.2rem;
+}
+
+/* Main hero heading — large white text */
+.hero-heading {
+  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.5px;
+}
+
+/* Each word fades+slides up individually via JS-added class */
+.hero-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Visible state — word slides into place */
+.hero-word.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Accent word — orange-red highlight */
+.hero-word--accent {
+  color: var(--highlight-color);
+}
+
+/* Subtitle below heading */
+.hero-sub {
+ font-size: 0.95rem;
+  color: rgba(255,255,255,0.73); 
+  letter-spacing: 2px;
+  margin-bottom: 2.5rem;
+}
+
+/* Left/right arrow buttons — hidden until hover on wrap */
+.hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.25);
+  color: var(--white);
+  font-size: 1.8rem;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0; /* hidden by default */
+  transition: opacity 0.3s ease, background 0.3s ease;
+}
+
+/* Show arrows when hovering the video wrap */
+.hero-video-wrap:hover .hero-arrow {
+  opacity: 1;
+}
+
+.hero-arrow--left  { left:  1.5rem; }
+.hero-arrow--right { right: 1.5rem; }
+
+.hero-arrow:hover {
+  background: rgba(39, 234, 156, 0.2);
+  border-color: var(--accent-color);
+}
+
+/* Mobile — smaller arrows */
+@media (max-width: 768px) {
+  .hero-arrow { font-size: 1.3rem; width: 2.5rem; height: 2.5rem; opacity: 1; }
+  .hero-heading { font-size: clamp(1.8rem, 7vw, 3rem); }
+}
+
+/* ========== MOBILE FIXES ========== */
+@media (max-width: 768px) {
+  /* Fix horizontal scroll */
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+  }
+  
+  /* Hero video full width */
+  .hero-video-wrap {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+  }
+  
+  /* Hero content - centered over video (scrolls away normally) */
+  .hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    padding: 1rem;
+    width: 90%;
+    z-index: 10;
+  }
+  
+  /* Fix hamburger position */
+  .hamburger {
+    right: 1rem;
+    position: relative;
+  }
+  
+  .sticky-nav {
+    padding: 1rem;
+  }
+}
+
+
+/* ========== FINAL FIX - FORCE HERO TEXT OVER VIDEO ========== */
+@media (max-width: 768px) {
+  #home {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .hero-video-wrap {
+    position: relative !important;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+  }
+  
+  .hero-content {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    z-index: 20 !important;
+    width: 90% !important;
+    margin: 0 !important;
+    padding: 1rem !important;
+    background: transparent !important;
+  }
+  
+  .hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .welcome-section {
+    position: relative;
+    z-index: 5;
+    background: var(--light-grey);
+  }
+}
+
+/* ========== FIX ARROW BUTTONS ON MOBILE ========== */
+@media (max-width: 768px) {
+  .hero-arrow {
+    opacity: 1 !important;
+    z-index: 30 !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.2rem;
+  }
+  
+  .hero-arrow--left {
+    left: 0.5rem; 
+  }
+  
+  .hero-arrow--right {
+    right: 0.5rem;
+  }
+  
+  .hero-arrow:hover {
+    background: rgba(39, 234, 156, 0.3) !important;
+  }
+}
+
+
+/* ========== FIX TABLET VIEW - HOME VIDEO FULL WIDTH ========== */
+@media (min-width: 769px) and (max-width: 1024px) {
+  html, body {
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    width: 100%; 
+  }
+  
+  .hero-video-wrap {
+    width: 100%;     /* Full width on tablet */
+    max-width: 100vw;  /* Ensure it doesn't exceed viewport width */
+    left: 0;     /* Align to left edge of viewport */
+    right: 0;    /* Align to right edge of viewport */
+    
+  }
+  
+  .hero-video {
+    width: 100%;
+    object-fit: cover;  /* Ensure video covers the area without distortion */
+  }
+}
+
+
+/* ========== NAVBAR TRANSPARENT ON TOP ========== */
+/* Nav becomes transparent at top, full navy on scroll */
+.sticky-nav {
+  position: fixed; /* changed from sticky to fixed so it overlays video */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: transparent; /* transparent at top */
+  padding: 1.4rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.15); /* subtle white divider line */
+  transition: background-color 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Scrolled state — added by JS when user scrolls down */
+.sticky-nav.scrolled {
+  background-color: var(--primary-color);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  border-bottom: none;
+}
+
+/* Push main content down so fixed nav doesn't cover it */
+/* Fade transition when switching sections */
+#main-content {
+  padding-top: 0;
+  transition: opacity 0.2s ease;
+}
+
+
+/* ========== BUTTONS ========== */
+/* Curtain effect — teal fill sweeps up from bottom on hover */
+.cta-btn, .logout-btn {
+   position: relative;
+  overflow: hidden;
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  border: 1.3px solid var(--accent-color); /* ADD THIS - border matches background */
+  padding: 0.6rem 1.2rem;
+  margin: 0.3rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: color 0.3s ease, border-color 0.3s ease; /* ADD border transition */
+  z-index: 0;
+
+}
+
+/* Pseudo-element — the curtain that sweeps up */
+.cta-btn::before, .logout-btn::before {
+   content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background-color: var(--primary-color);
+  transition: height 0.35s ease;
+  z-index: -1;
+  border-radius: 10.5px; /* slightly larger than button radius for smooth edges */
+}
+
+/* On hover — curtain rises to full height */
+.cta-btn:hover::before, .logout-btn:hover::before {
+  height: 100%;
+}
+
+/* Text color flips to white as dark curtain covers button */
+.cta-btn:hover, .logout-btn:hover {
+  color: var(--white);
+  border-color: var(--primary-color); /* ADD THIS - border changes on hover */
+}
+/* ========== FORMS ========== */
+.form-container {
+  background: var(--white);
+  max-width: 26rem;
+  min-height: auto;
+  padding: 1.5rem;
+  margin: 0 auto;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+  text-align: center;
+}
+
+.input-group {
+  margin-bottom: 1rem;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 0.6rem;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.submit-btn {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  border: 1.3px solid var(--accent-color);
+  margin: 1.5rem auto;
+  margin-top: 3rem;
+  margin-bottom: 0.1rem;
+  padding: 0.7rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 17px;
+  transition: color 0.3s ease, border-color 0.3s ease;
+  z-index: 0;
+}
+
+.submit-btn::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background-color: var(--primary-color);
+  transition: height 0.35s ease;
+  z-index: -1;
+  border-radius: 17px;
+}
+
+.submit-btn:hover::before {
+  height: 100%;
+}
+
+.submit-btn:hover {
+  color: var(--white);
+  border-color: var(--primary-color);
+}
+
+/* #register-form .submit-btn {
+  margin: 1.5rem auto;
+} */
+/* /or  */
+.register-btn {
+  margin: 0.7rem auto;
+}
+.register-container {
+  min-width: 36rem;
+  
+}
+
+/* Target the label that contains the text 'Gender' inside the register container */
+.register-container .input-group > label:not([for]) {
+  display: block; /* Required for margins to work */
+  margin-top: 0.1rem;
+  padding: 0.15rem;
+}
+/* Targets labels inside the radio-group div */
+.radio-group label {
+  
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.15rem;
+  
+}
+
+/* Success/Error Message Area */
+.msg-area {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  display: none;
+}
+.msg-success {
+  background-color: #d4edda;
+  color: #27ae60;
+  display: block;
+}
+.msg-error {
+  background-color: #f8d7da;
+  color: #c0392b;
+  display: block;
+}
+
+
+/* ========== PROPERTIES SECTION ========== */
+/* Flex wrap — cards flow into rows */
+.property-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  justify-content: center;
+}
+
+/* Section spacing */
+#properties {
+   padding-top: 8rem; 
+  padding-bottom: 4rem;
+}
+
+/* section-title is class for heading (what we do) */
+
+.section-title{
+  font-size: 2.2rem;
+  font-weight: 700;
+  text-align: center;
+  position: relative;
+  padding-bottom: 0.8rem;
+  margin-bottom: 2rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Red accent underline below headings - animated on scroll */
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2rem;
+  height: 3px;
+  background-color: var(--accent-color);   
+  border-radius: 2px;
+  transition: width 0.5s ease;
+}
+
+/* When heading comes into view, line grows */
+.section-title.line-grow::after {
+  width: 4rem;
+}
+
+/* While still in view, line shrinks back to original size */
+.section-title.line-shrink::after {
+  width: 3rem;
+}
+
+/* ========== MAIN HEADINGS FONT STYLE ========== */
+/* Targets: section-title/What We Do, Available Properties, Dashboard headings */
+.section-title,
+#properties h2,
+#dashboard h2 {
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.5px !important;
+  text-transform: none !important;
+}
+
+
+/* ========== HEADING SCROLL ANIMATION ========== */
+#properties h2,
+#dashboard h2 {
+  font-size: 1.6rem !important;
+  font-weight: 700;
+  text-align: center;
+  position: relative;
+  padding-bottom: 0.5rem;
+  margin-top: 0rem !important;
+  margin-bottom: 0.5rem !important;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+ transition: none;
+}
+
+#properties h2.heading-visible,
+#dashboard h2.heading-visible {
+  font-size: 1.6rem !important;
+  margin-top: 0rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* Underline animation */
+
+#properties h2::after,
+#dashboard h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  background-color: var(--accent-color);
+  border-radius: 3px;
+  transition: width 0.7s ease-out;
+}
+#properties h2.heading-visible::after,
+#dashboard h2.heading-visible::after {
+  width: 5rem;
+}
+
+/* Auto shrink after 1.5 seconds */
+/* When class is removed, width goes back to 0 */
+#properties h2:not(.heading-visible)::after,
+#dashboard h2:not(.heading-visible)::after {
+  width: 2rem;
+  transition: width 0.6s ease-out;
+}
+
+
+
+/* ========== HEADING SCROLL ANIMATION - MOBILE FIX ========== */
+@media (max-width: 768px) {
+  #properties h2,
+  #dashboard h2 {
+    transition: none;
+  }
+  
+  #properties h2.heading-visible,
+  #dashboard h2.heading-visible {
+    font-size: 1.4rem !important;
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+}
+
+/* Property cards — modern minimal */
+.card {
+  background: var(--white);
+  border-radius: 12px;
+  width: 21rem;
+  overflow: hidden;
+  /* box-shadow: 0 2px 12px rgba(0,0,0,0.07); */
+   box-shadow: 7px 7px 5px rgba(0, 0, 0, 0.08), 6px 6px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 2rem;
+  padding: 0;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+.card img {
+  width: 100%;
+  height: 11rem;
+  object-fit: cover;
+  border-radius: 0;
+  margin-bottom: 0;
+  display: block;
+}
+
+/* Card body below image */
+.card-body {
+  padding: 1.2rem;
+}
+
+.card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  color: var(--primary-color);
+}
+
+.card .card-price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent-color);
+  margin-bottom: 0.3rem;
+}
+
+/* Status badge */
+.card .card-status {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  margin-bottom: 1rem;
+}
+
+.card .card-status.available {
+  background: #d4edda;
+  color: #27ae60;
+}
+
+.card .card-status.sold {
+  background: #f8d7da;
+  color: #c0392b;
+}
+.card .card-status.underconstruction {
+  background: #fff3cd;
+  color: #856404;
+  font-size: 0.66rem;
+}
+
+/* ========== PROPERTIES BUTTON SPECIAL STYLE ========== */
+/* Properties section buttons have reversed colors */
+#properties .cta-btn {
+  background-color: var(--primary-color);
+  color: var(--white);
+  border-color: var(--primary-color);
+}
+
+#properties .cta-btn::before {
+  background-color: var(--accent-color);
+}
+
+#properties .cta-btn:hover {
+  color: var(--primary-color);
+  border-color: var(--accent-color);
+}
+
+/* ========== WELCOME SECTION ========== */
+.welcome-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6rem;
+  margin-bottom: 5rem;
+  gap: 3rem;
+  padding: 0 1.5rem;
+}
+
+/* Welcome Section with STRONGER BOUNCE EFFECT */
+.welcome-left img {
+  width: 100%;
+  max-width: 26rem;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  opacity: 0;
+  transform: translateY(-50px); /* starts  higher */
+  transition: opacity 0.5s ease-out, transform 0.7s cubic-bezier(0.68, -0.8, 0.265, 1.8); /* Stronger bounce */
+}
+
+.welcome-left img.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.welcome-right {
+  width: 50%;
+  font-size: 1rem;
+  font-style: normal;
+  opacity: 0;
+  transform: translateY(100px); /* starts lower */
+  transition: opacity 0.9s ease-out 0.45s, transform 1.1s cubic-bezier(0.68, -0.8, 0.265, 1.8) 0.15s; /* Stronger bounce with delay */
+}
+
+.welcome-right.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.welcome-right h2 {
+  font-size: 2.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
+}
+
+/* Accent color on "Hive Ventures" in welcome heading */
+.welcome-accent {
+  color: var(--highlight-color);
+}
+
+.welcome-right p {
+  color: #444;
+  line-height: 1.9;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+}
+
+/* Animated tagline — slides left to right infinitely */
+.moving-tagline {
+  color: var(--highlight-color);
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  animation: slideTagline 2s linear infinite alternate;
+}
+
+/* ========== OUR STORY BUTTON - REVERSED COLORS ========== */
+#ourStoryBtn {
+  background-color: var(--primary-color);
+  color: var(--white);
+  border-color: var(--primary-color);
+}
+
+#ourStoryBtn::before {
+  background-color: var(--accent-color);
+}
+
+#ourStoryBtn:hover {
+  color: var(--primary-color);
+  border-color: var(--accent-color);
+}
+
+@keyframes slideTagline {
+  from { transform: translateX(-15px); }
+  to { transform: translateX(15px); }
+}
+
+/* Mobile — stack image on top, text below */
+@media (max-width: 768px) {
+  .welcome-section {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+
+  .welcome-left {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .welcome-left img {
+    width: 85%;
+    max-width: 20rem;
+    border-radius: 8px;
+  }
+
+  .welcome-right {
+    width: 100%;
+    padding: 0 1rem;
+    font-size: 0.95rem;
+  }
+
+  .welcome-right h2 {
+    font-size: 1.5rem;
+  }
+}
+
+
+/* ========== WHAT WE DO SECTION ========== */
+/* Full-width alternating image+text blocks replacing old service cards */
+.whatwedo-section {
+  padding: 2rem 2rem 1rem;
+  
+}
+
+/* Each block is a two-column grid — image + text side by side */
+.wwd-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-bottom: 5rem;
+  opacity: 0; /* hidden until scroll triggers animation */
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+/* Block visible state — added by JS IntersectionObserver */
+.wwd-block.visible {
+  opacity: 1;
+  transform: none !important;
+}
+
+/* Left layout — image col 1, text col 2 (default order) */
+.wwd-block--left .wwd-image { order: 1; transform: translateX(-60px); }
+.wwd-block--left .wwd-text  { order: 2; transform: translateX(60px); }
+
+/* Right layout — text col 1, image col 2 (reversed via order) */
+.wwd-block--right .wwd-image { order: 2; transform: translateX(60px); }
+.wwd-block--right .wwd-text  { order: 1; transform: translateX(-60px); }
+
+/* Both image and text slide from their respective sides before visible */
+.wwd-block--left .wwd-image,
+.wwd-block--left .wwd-text,
+.wwd-block--right .wwd-image,
+.wwd-block--right .wwd-text {
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  opacity: 0;
+}
+
+/* On visible — reset transforms so elements slide into place */
+.wwd-block.visible .wwd-image,
+.wwd-block.visible .wwd-text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Image fills its column, rounded corners, slight shadow */
+.wwd-image img {
+  width: 100%;
+  height: 22rem;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  display: block;
+}
+
+/* Small red tag label above title */
+.wwd-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--highlight-color);
+  border-left: 4px solid var(--highlight-color);
+  border-radius: 2px; /* slight curve on the line edges */
+  padding-left: 0.75rem;
+  margin-bottom: 0.75rem;
+  box-shadow: -3px 0 8px rgba(231, 76, 60, 0.35); /* red glow shadow on the left line */
+}
+
+/* Service title */
+.wwd-text h3 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  border-left: 4px solid var(--highlight-color);
+  border-radius: 2px; /* matches tag line curve */
+  padding-left: 0.75rem;
+  box-shadow: -3px 0 8px rgba(231, 76, 60, 0.35); /* same shadow continues on title */
+}
+
+/* Description text */
+.wwd-text p {
+  color: #555;
+  line-height: 1.8;
+  font-size: 0.95rem;
+}
+
+/* Mobile — stack image on top, text below */
+@media (max-width: 768px) {
+  .wwd-block {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  /* Reset order so image always comes first on mobile */
+  .wwd-block--left .wwd-image,
+  .wwd-block--right .wwd-image { order: 1; }
+  .wwd-block--left .wwd-text,
+  .wwd-block--right .wwd-text  { order: 2; }
+}
+
+/* ========== ABOUT SECTION — SLIDESHOW ========== */
+/* Full-screen slides with background images, overlay, and arrow navigation */
+
+.about-section {
+  position: relative;
+  min-height: 100vh;
+  display: none; /* hidden until JS adds active class */
+  overflow: hidden;
+  margin-top: 0;
+}
+
+#about {
+  padding-top: 0 !important;  /* Remove top padding so background starts at top */
+  padding-bottom: 0; /* No bottom padding either  */
+}
+
+/* Each slide fills the full section — only active slide visible */
+.about-slide {
+   position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+  pointer-events: none;
+}
+
+/* Active slide is fully visible */
+.about-slide.active {
+  opacity: 1;
+  pointer-events: all; /* allow interaction only on active slide */
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Dark overlay for all slides — readability over any image */
+.about-overlay {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+}
+
+/* // bellow method by targetting styl can target each slide individually based on its background imag//
+ */
+
+/* Slide with aboutx3.avif - first slide (0.7) */
+.about-slide[style*="aboutx3.avif"] .about-overlay {
+  background: rgba(6, 14, 28, 0.5);
+  }
+
+/* Slide with aboutx7.jpg - second slide (0.5) */
+.about-slide[style*="aboutx7.jpg"] .about-overlay {
+  background: rgba(6, 14, 28, 0.35);
+}
+
+/* Slide with aboutx4.jpg - third slide (0.9) */
+.about-slide[style*="aboutx4.jpg"] .about-overlay {
+  background: rgba(6, 14, 28, 0.9);
+  padding-bottom: 1rem; /* less bottom padding on third slide to pull content up slightly for dots specification */
+}
+
+/* Adjust background position for first slide to better composition/full coverage */
+.about-slide[style*="aboutx3.avif"] {
+   background-position: top center;/* Adjust background position for better composition on first slide */
+}
+
+/* Slide 3 Gallery images - rounded corners and  Deep shadow */
+.about-slide[style*="aboutx4.jpg"] .about-gallery-item img {
+  border-radius: 44px !important;
+  box-shadow: 0 6px 16px rgba(239, 155, 155, 0.35) !important;
+}
+
+
+/* Optional: Add hover effect for gallery images */
+.about-slide[style*="aboutx4.jpg"] .about-gallery-item img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4) !important;
+}
+
+
+/* About slide content - push down below navbar */
+.about-slide-content {
+  max-width: 70rem;
+  width: 100%;
+  color: var(--white);
+  margin-top: 5rem;  /* Push content below transparent navbar */
+  padding: 0 2rem;   /* ← ADD THIS LINE */
+}
+
+/* Small pre-label above heading */
+.about-pre {
+     font-size: 1rem;
+    letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+
+/* Accent color span inside about heading */
+.about-accent {
+  color: var(--accent-color);
+}
+
+/* ---- Slide 0 — Storytelling style ---- */
+/* Large heading + paragraph, left-aligned */
+.about-style--story h2 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+}
+
+.about-style--story p {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: rgba(255,255,255,0.78);
+  max-width: 42rem;
+}
+
+/* ---- Slide 1 — Accent blocks style ---- */
+/* Three numbered blocks side by side */
+.about-blocks {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.about-block {
+  flex: 1;
+  min-width: 14rem;
+  border-left: 3px solid var(--accent-color);
+  padding-left: 1.2rem;
+  box-shadow: -3px 0 10px rgba(39, 234, 156, 0.25);
+}
+
+/* Large number above block title */
+.about-block-num {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--accent-color);
+  opacity: 0.5;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.about-block h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+
+.about-block p {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.68);
+  line-height: 1.7;
+}
+
+/* ---- Slide 2 — Gallery + images style ---- */
+.about-style--gallery h2 {
+  font-size: clamp(1.6rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 1.8rem;
+}
+
+/* Three small image cards in a row */
+.about-gallery {
+  display: flex;
+  gap: 1.2rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.about-gallery-item {
+  flex: 1;
+  min-width: 10rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.about-gallery-item img {
+  width: 100%;
+  height: 10rem;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.about-gallery-item span {
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent-color);
+}
+
+.about-gallery-caption {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+  max-width: 40rem;
+}
+
+/* Slide 3 (Gallery) - make everything smaller */
+.about-slide[style*="aboutx4.jpg"] .about-slide-content {
+  transform: scale(0.9);
+  /* above CSS scales down the content of the third slide /gallery to ninety percent size, creating a subtle zoomout effect. */
+
+}
+
+
+
+
+/* Arrow buttons — appear on hover, same style as hero arrows */
+.about-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.25);
+  color: var(--white);
+  font-size: 1.8rem;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease, background 0.3s ease;
+}
+
+/* Show arrows on hover over the section */
+.about-section:hover .about-arrow {
+  opacity: 1;
+}
+
+.about-arrow--left  { left:  1.5rem; }
+.about-arrow--right { right: 1.5rem; }
+
+.about-arrow:hover {
+  background: rgba(39, 234, 156, 0.2);
+  border-color: var(--accent-color);
+}
+
+/* Dot indicators at bottom */
+.about-dots {
+  position: absolute;
+  bottom: 1.8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.8rem; /* increased gap for better visibility */
+  z-index: 10;
+}
+
+.about-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgb(255, 120, 53);  
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.about-dot.active {
+  background: var(--accent-color); /* bright teal green */
+  transform: scale(1.5); /* enlarge active dot */
+  box-shadow: 0 0 8px rgba(39, 234, 156, 0.6); /* glow effect */
+}
+
+/* Mobile — stack blocks and gallery vertically */
+@media (max-width: 768px) {
+  .about-blocks { flex-direction: column; }
+  .about-gallery { flex-direction: column; }
+  .about-arrow { opacity: 1; }
+}
+
+/* Mobile - show full image without zoom */
+@media (max-width: 768px) {
+  .about-slide {
+    background-size: contain;
+    background-color: var(--primary-color);
+  }
+  
+  .about-slide.active {
+    background-size: cover;
+  }
+}
+
+
+/* ========== SITE FOOTER ========== */
+/* Big 3-column footer — brand, links, CTA */
+.site-footer {
+  background-color: var(--primary-color);
+  color: rgba(255,255,255,0.75);
+  padding: 4rem 2rem 0;
+  margin-top: auto;
+}
+
+/* Three columns side by side */
+.footer-inner {
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-col { flex: 1; min-width: 12rem; }
+
+/* Logo in footer — same style as nav */
+.footer-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.footer-logo .hive     { color: var(--white); font-weight: 800; }
+.footer-logo .ventures { color: var(--accent-color); }
+
+.footer-col p {
+  font-size: 0.88rem;
+  line-height: 1.8;
+  margin-bottom: 1.2rem;
+}
+
+/* Social icons row */
+.footer-socials {
+  display: flex;
+  gap: 0.8rem;
+}
+
+/* Each social icon — small circle button */
+.footer-socials a {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.7);
+  transition: border-color 0.3s, color 0.3s;
+}
+
+.footer-socials a:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+/* Column headings */
+.footer-col h4 {
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 1.2rem;
+}
+
+/* Nav links list */
+.footer-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.footer-col ul a {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.6);
+  transition: color 0.2s;
+}
+
+.footer-col ul a:hover { color: var(--accent-color); }
+
+/* CTA column extras */
+.footer-contact-info {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.5);
+  margin-top: 0.5rem;
+}
+
+/* Bottom copyright bar */
+.footer-bottom {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1.2rem 0;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.35);
+}
+
+.footer-bottom a {
+  color: rgba(255,255,255,0.4);
+  text-decoration: underline;
+}
+
+/* ========== SITE FOOTER - MOBILE IMPROVEMENT ========== */
+@media (max-width: 768px) {
+  /* Keep desktop flex behavior for footer-inner on mobile */
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  /* Brand section - full width on top */
+  .footer-col--brand {
+    width: 100%;
+    text-align: center;
+    order: 1;
+  }
+  
+  /* Create middle row for Explore + Get In Touch side by side */
+  .footer-middle-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
+    order: 2;
+  }
+  
+  /* Explore column - left side with vertical line on right */
+  .footer-middle-row .footer-col:first-child {
+    flex: 1;
+    text-align: left;
+    border-right: 1px solid rgba(255, 255, 255, 0.25);
+    padding-right: 1rem;
+  }
+  
+  /* Get In Touch column - right side */
+  .footer-middle-row .footer-col--cta {
+    flex: 1;
+    text-align: left;
+    padding-left: 1rem;
+  }
+  
+  /* Social icons centered */
+  .footer-socials {
+    justify-content: center;
+  }
+  
+  /* Bottom bar */
+  .footer-bottom {
+    margin-top: 2rem;
+    text-align: center;
+    flex-direction: column;
+    order: 3;
+  }
+}
+
+/* For very small screens (below 450px) - adjust padding and font */
+@media (max-width: 450px) {
+  .footer-middle-row {
+    gap: 0.5rem;
+  }
+  
+  .footer-middle-row .footer-col:first-child {
+    padding-right: 0.5rem;
+  }
+  
+  .footer-middle-row .footer-col--cta {
+    padding-left: 0.5rem;
+  }
+  
+  .footer-middle-row h4 {
+    font-size: 0.7rem;
+  }
+  
+  .footer-middle-row ul a,
+  .footer-middle-row p,
+  .footer-contact-info {
+    font-size: 0.7rem;
+  }
+  
+  .footer-middle-row .cta-btn {
+    font-size: 0.65rem;
+    padding: 0.3rem 0.5rem;
+  }
+}
+
+/* ========== DESKTOP FOOTER - ORIGINAL 3-COLUMN LAYOUT ========== */
+@media (min-width: 769px) {
+  /* Override any mobile styles for desktop */
+  .footer-inner {
+    display: flex;
+    flex-direction: row !important;
+    gap: 3rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  /* Hide the middle-row wrapper on desktop (not needed) */
+  .footer-middle-row {
+    display: contents !important;
+  }
+  
+  /* Brand column - normal flex */
+  .footer-col--brand {
+    width: auto;
+    flex: 1;
+    text-align: left;
+  }
+  
+  /* Explore column - normal */
+  .footer-col:nth-child(2) {
+    flex: 1;
+    border-right: none;
+    padding-right: 0;
+  }
+  
+  /* Get In Touch column - normal */
+  .footer-col--cta {
+    flex: 1;
+    padding-left: 0;
+  }
+  
+  /* Remove any inline styles that might affect desktop */
+  .footer-middle-row .footer-col:first-child {
+    border-right: none;
+    padding-right: 0;
+  }
+  
+  .footer-middle-row .footer-col--cta {
+    padding-left: 0;
+  }
+}
+
+/* ========== CONTACT PAGE - SIMPLE TWO COLUMN LAYOUT ========== */
+
+/* Background image */
+#contact {
+  background: url('assets/aboutx10.jpg') top center/cover no-repeat fixed;
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: none;  /* Change from flex to none,, Force hide contact section unless active */
+  padding: 8rem 2rem 4rem 2rem; /* Added top padding to pull form down */
+}
+
+#contact.active {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+
+#contact::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(11, 36, 57, 0.5);
+  z-index: 0;
+}
+
+
+/* Two column wrapper */
+.contact-wrapper {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  max-width: 1000px;
+  width: 100%;
+  gap: 2rem;
+  align-items: center;
+  margin-right: auto;  /* Push to right */
+  margin-left: auto;   /* Center horizontally */
+}
+
+/* Left side - simple text */
+.contact-text {
+  flex: 1;
+  text-align: left; 
+}
+
+.contact-text h2 {
+  font-size: 3.2rem; /* Bigger font */
+  font-weight: 600;
+  color: white;
+  margin-bottom: 1rem;
+  font-family: 'Playfair Display', Georgia, serif; /* More stylish */
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+  padding-bottom: 0.5rem;
+  
+}
+
+.contact-text p {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+/* Right side - form wrapper */
+.contact-form-wrapper {
+  flex: 1;
+}
+
+/* Form container - more transparent */
+.contact-form-wrapper .form-container {
+  background: rgba(255, 255, 255, 0.08); /* More transparent */
+  backdrop-filter: blur(2px);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 0;
+  max-width: 100%;
+}
+
+.contact-form-wrapper .form-container h2 {
+  text-align: left;
+  /* position: relative;
+  display: inline-block; */
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 0.3rem;
+}
+.contact-form-wrapper .form-container h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background-color: var(--accent-color);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+.contact-form-wrapper .form-container h2.heading-visible::after {
+  width: 4rem;
+}
+.contact-pre {
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  margin-bottom: 0.3rem;
+}
+
+.contact-sub {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.98);
+  margin-bottom: 1.2rem;
+}
+
+/* Form inputs - more width, space on sides */
+.contact-form-wrapper .form-container .input-group {
+  margin-bottom: 0.8rem;
+}
+
+.contact-form-wrapper .form-container .input-group input,
+.contact-form-wrapper .form-container .input-group textarea {
+  padding: 0.5rem 0.8rem;
+  font-size: 0.85rem;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: white;
+  border-radius: 8px;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+/* Brighter placeholder */
+.contact-form-wrapper .form-container .input-group input::placeholder,
+.contact-form-wrapper .form-container .input-group textarea::placeholder {
+  color: rgba(255, 255, 255, 0.954);
+}
+
+/* Focus effect */
+.contact-form-wrapper .form-container .input-group input:focus,
+.contact-form-wrapper .form-container .input-group textarea:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.contact-form-wrapper .form-container .input-group textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.contact-form-wrapper .form-container .input-group label {
+  font-size: 0.75rem;
+  margin-bottom: 0.25rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Submit button with curtain effect */
+.contact-form-wrapper .form-container .submit-btn {
+  position: relative;
+  overflow: hidden;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  border: 1.3px solid var(--accent-color);
+  border-radius: 9px;
+  width: 100%;
+  cursor: pointer;
+  font-weight: 600;
+  z-index: 0;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Curtain effect for button */
+.contact-form-wrapper .form-container .submit-btn::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background-color: var(--primary-color);
+  transition: height 0.35s ease;
+  z-index: -1;
+  border-radius: 9px;
+}
+
+.contact-form-wrapper .form-container .submit-btn:hover::before {
+  height: 100%;
+}
+
+.contact-form-wrapper .form-container .submit-btn:hover {
+  color: var(--white);
+  border-color: var(--primary-color);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .contact-wrapper {
+    /* margin-top: 3rem; */
+    flex-direction: column;
+    gap: 3rem;
+    text-align: center;
+  }
+  
+  .contact-text {
+    text-align: center;
+  }
+  
+  .contact-text h2 {
+    font-size: 2rem;
+    
+  }
+  
+  .contact-form-wrapper {
+    width: 100%;
+  }
+  .contact-form-wrapper .form-container h2 {
+  text-align: left !important;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+}
+
+
+/* Form footer links , it is used to provide additional navigation options */
+.form-footer {
+  text-align: center;
+  margin-top: 0.1rem;
+  padding-top: 0.3rem;
+  font-size: 0.9rem;
+  color: var(--dark-grey);
+  margin-top: auto;  
+  margin-bottom: auto;
+}
+
+.form-footer a {
+ color: #a36695; /* Solid, slightly deeper tone for better readability */
+    text-decoration: none;
+    font-weight: 500; /* Medium weight looks more professional than 400 */
+    font-size: 0.85rem; /* Slightly smaller is often more "minimal" */
+    letter-spacing: 0.02em;
+    transition: color 0.2s ease-in-out;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.form-footer a:hover {
+  color: #8a4d7b; /* Darkens slightly on hover */
+    text-decoration: underline; /* Classic cue that it's clickable */
+}
+
+.investment-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #666;
+  margin: 0.5rem 0;
+  gap: 0.5rem;
+}
+
+.form-links {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+
+}
+
+
+.form-links a {
+    color: #a36695; /* Solid, slightly deeper tone for better readability */
+    text-decoration: none;
+    font-weight: 500; /* Medium weight looks more professional than 400 */
+    font-size: 0.85rem; /* Slightly smaller is often more "minimal" */
+    letter-spacing: 0.02em;
+    transition: color 0.2s ease-in-out;
+    margin-top: auto;
+}
+
+.form-links a:hover {
+    color: #8a4d7b; /* Darkens slightly on hover */
+    text-decoration: underline; /* Classic cue that it's clickable */
+}
+
+ 
+/* recovery Modal Styles */
+.modal {
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: var(--white);
+  margin: auto;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 450px;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.modal-close {
+  position: absolute;
+  right: 1rem;
+  top: 0.5rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--dark-grey);
+}
+
+.modal-close:hover {
+  color: var(--primary-color);
+}
+
+.modal-content h3 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* ========== DASHBOARD ========== */
+
+/* Welcome bar with avatar */
+.dashboard-welcome {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1.2rem 1.5rem;
+  background: var(--white);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+#dashboard {
+  padding-top: 8rem; /* ADD THIS */
+  padding-bottom: 4rem;
+  padding-left: 3rem !important;
+  padding-right: 3rem !important;
+}
+
+/* Circle avatar showing first letter of username */
+.dash-avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--highlight-color);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+
+.dashboard-welcome h3 {
+  margin: 0 0 0.3rem 0;
+  font-size: 1.1rem;
+}
+
+/* Role badge */
+.dash-role-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+}
+
+.dash-role-badge.admin {
+  background: #d4edda;
+  color: #27ae60;
+}
+
+.dash-role-badge.investor {
+  background: #d4edda;
+  color: #27ae60;
+}
+
+/* Stats row */
+.dash-stats {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.dash-stat-card {
+  flex: 1;
+  min-width: 7rem;
+  background: var(--white);
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+
+.dash-stat-num {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--dark-grey);
+}
+
+.dash-stat-label {
+  font-size: 0.75rem;
+  color: var(--dark-grey);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Section block  */
+.dash-section {
+  background: var(--white);
+  border-radius: 10px;
+  padding: 1.4rem;
+  margin-bottom: 1.4rem;
+  box-shadow: 0 19px 25px rgba(0,0,0,0.06);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.dash-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.dash-section-header h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  
+}
+.dash-section h4 {
+  margin-bottom: 0;
+}
+
+.dash-section p {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+
+/* Table */
+.dash-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+   
+}
+
+.dash-table th {
+  text-align: left;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.95px;
+  color: var(--dark-grey);
+  border-bottom: 2px solid var(--light-grey);
+}
+
+.dash-table td {
+  padding: 0.8rem;
+  border-bottom: 1px solid var(--light-grey);
+  color: var(--primary-color);
+}
+
+.dash-table th,
+.dash-table td {
+  padding: 0.8rem 1.7rem;
+  text-align: left;
+   border-bottom: 1.4px solid var(--light-grey);
+   padding-left: 2.65rem;
+}
+
+.dash-table th {
+  font-size: 0.8rem;
+  padding-top: 1.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.95px;
+  color: var(--dark-grey);
+  border-bottom: 3.98px solid var(--light-grey);
+    
+}
+
+.dash-delete-btn {
+  background: #ff8e09;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dash-delete-btn:hover {
+   background: #944531;
+}
+
+/* Withdrawn investments - faded style */
+.withdrawn-row {
+  opacity: 0.85;
+}
+
+.withdrawn-row td {
+  color: #777;
+}
+
+/* Custom thin scrollbar for investment table */
+/* webkit is used here specificlly for Chrome, Edge, Safari browsers. Other browsers will show default scrollbar. */
+.dash-section::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.dash-section::-webkit-scrollbar-track {
+  background: var(--light-grey);
+  border-radius: 10px;
+}
+
+.dash-section::-webkit-scrollbar-thumb {
+  background: var(--dark-grey);
+  border-radius: 10px;
+}
+
+.dash-section::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-color);
+}
+
+/* Placeholder text style */
+::placeholder {
+  color: #bbb;
+  opacity: 0.7;
+  font-size: 0.8rem;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #bbb;
+  opacity: 0.9;
+}
+
+/* Info grid for investor */
+.dash-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.dash-info-item {
+  background: var(--light-grey);
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.dash-info-item span {
+  font-size: 0.75rem;
+  color: var(--dark-grey);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dash-info-item strong {
+  font-size: 0.95rem;
+  color: var(--primary-color);
+}
+
+
+
+/* Profit Sharing Section */
+.profit-sharing-section {
+  background: var(--white);
+  border-radius: 10px;
+  padding: 1.7rem 1.5rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  margin-top: 1.95rem;
+}
+
+.profit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* Removed margin-bottom to keep the paragraph close */
+  margin-bottom: 0; 
+}
+
+.profit-header h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.total-profit {
+  font-size: 0.90rem;
+  font-weight: 500;
+  color: var(--primary-color);
+  background: rgba(39, 234, 156, 0.1);
+  padding: 0.3rem 1rem;
+  border-radius: 30px;
+  margin-right: 2rem;
+  
+  /* POSITIONING FIX */
+  position: relative; 
+  top: 0.7rem; /* Moves it down visually without pushing the paragraph */
+}
+
+.total-profit strong {
+  color: rgb(39, 199, 116);
+  font-weight: 900;
+  margin-left: 0.6rem;
+  margin-right: 0.9rem;
+  font-size: 1rem;
+  
+}
+
+.profit-sharing-section p {
+  margin: 0;
+  /* REMOVED margin-top: -0.4rem; */
+  font-size: 0.8rem;
+  color: var(--dark-grey);
+  /* Optional: add a tiny positive top margin if they are touching */
+  margin-top: 0.1rem; 
+}
+
+@media (max-width: 768px) {
+  .profit-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    /* Added a little bottom margin only for mobile layout */
+    margin-bottom: 1.7rem; 
+  }
+}
+
+/* Profile Section */
+.profile-section {
+  background: var(--white);
+  border-radius: 10px;
+  padding: 1.2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  border-bottom: 2.6px solid var(--light-grey);
+  padding-bottom: 0.5rem;
+}
+
+.profile-header h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.edit-profile-btn, .save-profile-btn, .cancel-profile-btn {
+  background: var(--accent-color);
+  color: var(--primary-color);
+  border: none;
+  padding: 0.4rem 1.1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.edit-profile-btn:hover, .save-profile-btn:hover, .cancel-profile-btn:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+.cancel-profile-btn {
+  background: var(--dark-grey);
+  color: white;
+  margin-left: 0.5rem;
+}
+
+.profile-row {
+  display: flex;
+  margin-bottom: 0.8rem;
+  align-items: center;
+}
+
+.profile-label {
+  width: 100px;
+  font-weight: 600;
+  color: var(--dark-grey);
+  font-size: 0.85rem;
+}
+
+.profile-value {
+  flex: 1;
+  color: var(--primary-color);
+  font-size: 0.9rem;
+}
+
+.profile-row input, .profile-row select {
+  flex: 1;
+  padding: 0.4rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.profile-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .profile-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+  
+  .profile-label {
+    width: auto;
+  }
+  
+  .profile-row input, .profile-row select {
+    width: 100%;
+  }
+}
+
+/* Mobile dashboard - Fully Responsive */
+/* Table had white-space: nowrap preventing squishing; fixed by hiding headers 
+and using data-label to stack each row vertically into cards. */
+/* Hiding <thead> removes column headers, and data-label shows them 
+inline on each mobile row instead. */
+/* data-label stores the column name for each cell (data-label="Property"), 
+then CSS ::before displays it on mobile as a left label for each stacked row. */
+
+@media (max-width: 768px) {
+  #dashboard {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  
+  .dashboard-welcome {
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  .dash-stats {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .dash-stat-card {
+    width: 100%;
+    min-width: auto;
+    padding: 0.8rem;
+  }
+  
+  /* Make table responsive - stack on mobile */
+  .dash-table thead {
+    display: none;
+  }
+  
+  .dash-table tbody tr {
+    display: block;
+    margin-bottom: 1rem;
+    border: 1px solid var(--light-grey);
+    border-radius: 8px;
+    padding: 0.5rem;
+  }
+  
+  .dash-table tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    text-align: right;
+    border-bottom: 1px solid var(--light-grey);
+  }
+  
+  .dash-table tbody td:last-child {
+    border-bottom: none;
+  }
+  
+  .dash-table tbody td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    text-align: left;
+    margin-right: 1rem;
+    color: var(--primary-color);
+  }
+  
+  .dash-section {
+    overflow-x: visible;
+    padding: 0.8rem;
+  }
+  
+  .dash-info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .dash-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  /* Make buttons smaller on mobile */
+  .logout-btn,
+  .dash-delete-btn {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.7rem;
+  }
+}
+
+/* //admin dashboard */
+.status-badge.available {
+  background: #d4edda;
+  color: #27ae60;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.7rem;
+}
+
+.status-badge.sold {
+  background: #f8d7da;
+  color: #c0392b;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.7rem;
+}
+.status-badge.underconstruction {
+  padding: 0.25rem 0.55rem;
+  border-radius: 20px;
+  font-size: 0.65rem;
+  font-weight: 400;
+  display: inline-block;
+  background: #fff3cd;
+  color: #856404;
+}
+
+.edit-property-btn, .delete-property-btn, .delete-investment-btn, .delete-user-btn, .add-property-btn {
+  background: var(--accent-color);
+  color: var(--primary-color);
+  border: none;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  cursor: pointer;
+  margin: 0 0.2rem;
+}
+
+.delete-property-btn, .delete-investment-btn, .delete-user-btn {
+  background: #ff5c35;
+  color: white;
+}
+
+.add-property-btn {
+  background: var(--primary-color);
+  color: white;
+}
+
+.edit-property-btn, .add-property-btn {
+  background: var(--accent-color);
+  color: var(--primary-color);
+  border: none;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.edit-property-btn:hover, .add-property-btn:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+.add-property-btn {
+  width: 7.5rem;
+  font-size: 0.864rem;
+  font-weight: 400;
+  background: var(--accent-color);
+  color: white;
+  transition: width 0.5s, background-color 1.3s;
+}
+.add-property-btn:hover {
+  width: 8.1rem;  
+  background-color:var(--primary-color);
+  color: white;
+}
+
+.delete-property-btn, .delete-investment-btn, .delete-user-btn {
+  background: #ff8c35;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.delete-property-btn:hover, .delete-investment-btn:hover, .delete-user-btn:hover {
+  background: #762713;
+  color: white;
+}
+
+
+
+/* Admin Dashboard Responsive */
+@media (max-width: 768px) {
+  .dash-section {
+    overflow-x: auto;
+  }
+  
+  .dash-table {
+    min-width: 300px;
+  }
+  
+  .dash-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .edit-property-btn, .delete-property-btn, .delete-investment-btn, .delete-user-btn, .add-property-btn {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.7rem;
+  }
+  
+  .dash-stats {
+    flex-direction: column;
+  }
+  
+  .dash-stat-card {
+    width: 100%;
+  }
+  
+  .profile-section {
+    padding: 1rem;
+  }
+  
+  .profile-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+  
+  .profile-label {
+    width: auto;
+  }
+  
+  .profile-buttons {
+    justify-content: flex-start;
+  }
+}
+
+/* Make tables horizontally scrollable on mobile without removing vertical scroll */
+@media (max-width: 768px) {
+  .dash-section {
+    overflow-y: visible;
+  }
+  
+  .dash-table {
+    min-width: 350px;
+   
+  }
+}
+
+/* Property Detail Modal */
+.property-detail-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 3000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.property-detail-content {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 1.5rem;
+  max-width: 380px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+.property-detail-close {
+  position: absolute;
+  right: 1rem;
+  top: 0.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #999;
+}
+
+.property-detail-title {
+  margin-bottom: 0.3rem;
+  font-size: 1.2rem;
+  color: #2c3e50;
+  font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+.property-detail-location {
+  color: #888;
+  font-size: 0.75rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.property-detail-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.7rem 0;
+}
+
+.property-detail-label {
+  color: #666;
+  font-size: 0.8rem;
+}
+
+.property-detail-value {
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.property-detail-divider {
+  margin: 0.8rem 0;
+  border: none;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+.property-detail-description {
+  font-size: 0.8rem;
+  color: #555;
+  margin-top: 0.8rem;
+  line-height: 1.5;
+}
+
+.property-detail-note {
+  font-size: 0.7rem;
+  color: #888;
+  margin-top: 1rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(0,0,0,0.08);
+  font-style: italic;
+}
+
+/* ? */
+.modal {
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: var(--white);
+  margin: auto;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.modal-close {
+  position: absolute;
+  right: 1rem;
+  top: 0.5rem;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--dark-grey);
+}
+
+.modal-close:hover {
+  color: var(--primary-color);
+}
+
+/* Terms & Privacy Modals */
+.terms-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 3000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.terms-content {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 1.8rem;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+.terms-close {
+  position: absolute;
+  right: 1.2rem;
+  top: 0.8rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #888;
+  transition: color 0.2s;
+}
+
+.terms-close:hover {
+  color: #333;
+}
+
+.terms-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+  letter-spacing: 0.5px;
+  font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+.terms-date {
+  font-size: 0.7rem;
+  color: #888;
+  margin-bottom: 1.2rem;
+  font-style: italic;
+}
+
+.terms-subtitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 1rem 0 0.3rem;
+  color: #2c3e50;
+}
+
+.terms-text {
+  font-size: 0.78rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 0.8rem;
+  font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+/* //password change option in profile section */
+.change-password-btn {
+  background: var(--accent-color);
+  color: var(--primary-color);
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-right: 0.4rem;
+  transition: all 0.3s ease; 
+ 
+}
+
+.change-password-btn:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* cancel button style */
+.cancel-property-btn {
+  background: var(--dark-grey);
+  color: white;
+  border: none;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0 0.2rem;
+}
+
+.cancel-property-btn:hover {
+  background: #5a6268;
+}
+
+.dash-section {
+  /* Offset-X | Offset-Y | Blur-Radius | Color */
+  box-shadow: 
+    9px 9px 5px rgba(0, 0, 0, 0.08), 
+    9px 9px 5px rgba(0, 0, 0, 0.1);
+  
+  margin-bottom: 2.6rem;
+  margin-top: 2.4rem;
+  border-radius: 8px; /* Optional: adds a cleaner look to shadowed corners */
+}
+
+/* Common shadow for all dashboard cards */
+.profile-section,
+.dash-stat-card,
+.dashboard-welcome {
+  box-shadow: 7px 7px 5px rgba(0, 0, 0, 0.08), 6px 6px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Edit mode - keep buttons inline */
+.dash-table tr.editing td {
+  padding: 0.4rem;
+  vertical-align: middle;
+}
+
+.dash-table .edit-title,
+.dash-table .edit-city,
+.dash-table .edit-price {
+  width: 100px;
+  padding: 0.3rem;
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.dash-table .edit-property-btn,
+.dash-table .cancel-property-btn,
+.dash-table .delete-property-btn {
+  display: inline-block;
+  margin: 0 0.2rem;
+  white-space: nowrap;
+}
+
+/* Single line rows in All Investments table */
+.dash-table td {
+  
+  padding: 0.6rem 1rem;
+  padding-left: 1.95rem;
+  
+}
+.dash-table th {
+  white-space: nowrap;
+  padding-left: 1.95rem;
+  
+}
+
+
+/* Tablet view responsiveness */
+@media (min-width: 769px) and (max-width: 1024px) {
+  #dashboard {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+  
+  .dash-stats {
+    gap: 0.8rem;
+  }
+  
+  .dash-stat-card {
+    min-width: 6rem;
+  }
+  
+  .dash-table th,
+  .dash-table td {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
+  }
+  
+  .dash-section {
+    overflow-x: auto;
+  }
+  
+  .dash-table {
+    min-width: 600px;
+  }
+  
+  .edit-property-btn,
+  .delete-property-btn,
+  .delete-investment-btn,
+  .delete-user-btn,
+  .add-property-btn {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.7rem;
+  }
+}
+
+/* On mobile, allow wrapping */
+@media (max-width: 768px) {
+  .dash-table td {
+    white-space: normal;
+  }
+}
+
+/* Mobile margins */
+@media (max-width: 768px) {
+  #dashboard {
+    padding-top: 7rem;
+    padding-bottom: 2rem;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+ /* /fpr spacing from above and bellow of dashb  */
+  .dash-section {
+    margin-bottom: 2.7rem;
+    margin-top: 2.7rem;
+  }
+}
+
+/* Contact response popup */
+.contact-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 3000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-popup-content {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 480px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.contact-popup-close {
+  position: absolute;
+  right: 1rem;
+  top: 0.5rem;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #7f8c8d;
+}
+
+.contact-popup-pre {
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  margin-bottom: 0.5rem;
+}
+
+.contact-popup-message {
+  background: var(--light-grey);
+  border-radius: 8px;
+  padding: 1rem;
+  border-left: 3px solid var(--accent-color);
+}
+
+/* Contact table in admin */
+.contact-message-cell {
+  max-width: 200px;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.response-cell {
+  min-width: 200px;
+}
+
+.response-input {
+  flex: 1;
+  min-width: 120px;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.78rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+  .response-cell {
+    min-width: 250px;
+  }
+}
+
+.delete-contact-btn {
+  background: #f87f61;
+  color: white;
+  border: none;
+  padding: 0.1rem 0.4rem;
+  border-radius: 6px;
+  font-size: 0.73rem;
+  cursor: pointer;
+  margin-left: 0.1rem;
+  transition: all 0.3s ease;
+}
+
+.delete-contact-btn:hover {
+  background: #913119;
+}
+
+/* above are newly/recently updated/modified sections/function 's  css */
+
+/* Enhanced Register Form */
+.form-container {
+  max-width: 28rem;
+  width: 100%;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-row .input-group {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.radio-group {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-weight: normal;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+.radio-group input[type="radio"] {
+  width: auto;
+  margin: 0;
+  accent-color: var(--accent-color);
+}
+
+.form-section-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--dark-grey);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 1rem 0 0.5rem 0;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--light-grey);
+}
+
+.form-container h2 {
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+
+.form-container h2::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: var(--accent-color);
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+
+.form-subtitle {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--dark-grey);
+  margin-bottom: 1rem;
+}
+
+
+/* ========== NAV SEARCH ========== */
+.nav-search-li {
+  display: flex;
+  align-items: center;
+}
+
+/* Center search icon in hamburger menu on mobile */
+@media (max-width: 768px) {
+  .nav-search-li {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+/* Icon on right, input expands to the left */
+.nav-search-wrap {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse; /* Place icon on the right */
+}
+
+/* Search icon button */
+.nav-search-icon {
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.3rem;
+  transition: color var(--transition-speed);
+  transform: scaleX(-1); /* Flip the search icon horizontally */
+}
+
+.nav-search-icon:hover {
+  color: var(--accent-color);
+}
+
+/* Input hidden by default — expands on open class */
+.nav-search-input {
+  width: 0;
+  opacity: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--white);
+  font-size: 0.85rem;
+  padding: 0;
+  transition: width 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.nav-search-input::placeholder {
+  color: rgba(255,255,255,0.5);
+}
+
+/* JS adds open class — input slides out to the left */
+.nav-search-wrap.open .nav-search-input {
+  width: 10rem;
+  opacity: 1;
+  padding: 0.2rem 0.4rem;
+  border-bottom: 1px solid rgba(255,255,255,0.5);
+}
+
+
+
+/* ========== SCROLLBAR ========== */
+/* webkit = Chrome/Edge/Safari */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--light-grey);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-color);
+}
+
+
+/* ========== HAMBURGER MENU ========== */
+/* Hidden on desktop, shown on mobile */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+  z-index: 2001;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background: white;
+  transition: 0.3s;
+}
+
+/* Animate 3 bars into X when active */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+
+/* ========== BUTTON ARROW MOVEMENT ON HOVER ========== */
+/* this btn-arrow is arrow inside button and other arrow named class is dropdown icon */
+.cta-btn:hover .btn-arrow {
+  transform: translateX(5px);
+}
+
+
+/* ========== MOBILE RESPONSIVE ========== */
+@media (max-width: 768px) {
+  /* Stack hero to single column */
+  .hero {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Show hamburger icon */
+  .hamburger {
+    display: flex;
+  }
+
+  /* Full screen slide-in menu */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--primary-color);
+    transform: translateX(-100%);
+    transition: transform 0.4s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+  }
+
+  /* Slide in from left when active */
+  nav.active {
+    transform: translateX(0);
+  }
+
+  /* Stack nav links vertically */
+  .nav-links {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .nav-links a, .dropbtn {
+    font-size: 1.5rem;
+  }
+
+  /* Disable hover dropdown on mobile — use click instead */
+  .dropdown:hover .dropdown-content {
+    display: none;
+  }
+  
+  /* Dropdown stacks inline inside menu */
+  .dropdown-content {
+    position: static; /* Pushes content and Stack inside the menu instead of floating */
+    /* Remove absolute positioning for mobile */
+    background: transparent;
+    box-shadow: none;
+    margin-top: 0.5rem;
+  }
+  
+  .dropdown.active .dropdown-content {
+    display: block;
+  }
+
+  .dropdown-content a {
+    padding-left: 2rem;
+    font-size: 1.2rem;
+    color: var(--accent-color);
+  }
+ 
+  /* Force white text in hamburger menu */
+  nav.active .nav-links a,
+  nav.active .dropbtn {
+    color: white !important;
+  }
+  
+  nav.active .nav-links a:hover,
+  nav.active .dropbtn:hover {
+    color: var(--accent-color) !important;
+  }
+  
+   /* Search icon in hamburger menu - make white on ALL pages */
+  nav.active .nav-search-icon {
+    color: white !important;
+  }
+  
+  nav.active .nav-search-icon:hover {
+    color: var(--accent-color) !important;
+  }
+  
+   /* Search input and line white when opened in hamburger menu */
+  nav.active .nav-search-input {
+    color: white !important;
+    border-bottom-color: white !important;
+  }
+  
+  nav.active .nav-search-input::placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+  }
+  
+}
+
+/* Slightly smaller font on medium screens */
+@media (max-width: 1200px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+/* Smallest font on mobile */
+@media (max-width: 768px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+
+
+
+/* body:has(.active) = Targets body when it CONTAINS an element with that class.
+
+Example: body:has(#properties.active) applies styles only when the Properties section is active. */
+
+
+/* ========== NAVBAR COLOR CHANGE ON WHITE BACKGROUND PAGES ========== */
+/* When on properties, dashboard, or account pages (login/register) */
+body:has(#properties.active) .sticky-nav:not(.scrolled) .nav-links a,
+body:has(#properties.active) .sticky-nav:not(.scrolled) .dropbtn,
+body:has(#properties.active) .sticky-nav:not(.scrolled) .logo .hive,
+body:has(#dashboard.active) .sticky-nav:not(.scrolled) .nav-links a,
+body:has(#dashboard.active) .sticky-nav:not(.scrolled) .dropbtn,
+body:has(#dashboard.active) .sticky-nav:not(.scrolled) .logo .hive,
+body:has(#login.active) .sticky-nav:not(.scrolled) .nav-links a,
+body:has(#login.active) .sticky-nav:not(.scrolled) .dropbtn,
+body:has(#login.active) .sticky-nav:not(.scrolled) .logo .hive,
+body:has(#register.active) .sticky-nav:not(.scrolled) .nav-links a,
+body:has(#register.active) .sticky-nav:not(.scrolled) .dropbtn,
+body:has(#register.active) .sticky-nav:not(.scrolled) .logo .hive {
+  color: var(--primary-color);
+}
+
+/* Ventures stays accent color always */
+.sticky-nav:not(.scrolled) .logo .ventures {
+  color: var(--accent-color);
+}
+
+/* Navbar border color on white pages */
+body:has(#properties.active) .sticky-nav:not(.scrolled),
+body:has(#dashboard.active) .sticky-nav:not(.scrolled),
+body:has(#login.active) .sticky-nav:not(.scrolled),
+body:has(#register.active) .sticky-nav:not(.scrolled) {
+  border-bottom-color: rgba(11, 36, 57, 0.15);
+}
+
+/* ========== NAVBAR HOVER COLOR ON WHITE PAGES ========== */
+body:has(#properties.active) .sticky-nav:not(.scrolled) .nav-links a:hover,
+body:has(#properties.active) .sticky-nav:not(.scrolled) .dropbtn:hover,
+body:has(#dashboard.active) .sticky-nav:not(.scrolled) .nav-links a:hover,
+body:has(#dashboard.active) .sticky-nav:not(.scrolled) .dropbtn:hover,
+body:has(#login.active) .sticky-nav:not(.scrolled) .nav-links a:hover,
+body:has(#login.active) .sticky-nav:not(.scrolled) .dropbtn:hover,
+body:has(#register.active) .sticky-nav:not(.scrolled) .nav-links a:hover,
+body:has(#register.active) .sticky-nav:not(.scrolled) .dropbtn:hover {
+  color: var(--accent-color) !important; /* Teal green on hover */
+  
+}
+
+/* ========== SEARCH ICON COLOR ON WHITE PAGES ========== */
+body:has(#properties.active) .sticky-nav:not(.scrolled) .nav-search-icon,
+body:has(#dashboard.active) .sticky-nav:not(.scrolled) .nav-search-icon,
+body:has(#login.active) .sticky-nav:not(.scrolled) .nav-search-icon,
+body:has(#register.active) .sticky-nav:not(.scrolled) .nav-search-icon {
+  color: var(--primary-color);
+}
+
+body:has(#properties.active) .sticky-nav:not(.scrolled) .nav-search-icon:hover,
+body:has(#dashboard.active) .sticky-nav:not(.scrolled) .nav-search-icon:hover,
+body:has(#login.active) .sticky-nav:not(.scrolled) .nav-search-icon:hover,
+body:has(#register.active) .sticky-nav:not(.scrolled) .nav-search-icon:hover {
+  color: var(--accent-color);
+}
+
+/* ========== DROPDOWN TEXT COLOR ON WHITE PAGES ========== */
+body:has(#properties.active) .dropdown-content a,
+body:has(#dashboard.active) .dropdown-content a,
+body:has(#login.active) .dropdown-content a,
+body:has(#register.active) .dropdown-content a {
+  color: white !important;
+}
+
+body:has(#properties.active) .dropdown-content a:hover,
+body:has(#dashboard.active) .dropdown-content a:hover,
+body:has(#login.active) .dropdown-content a:hover,
+body:has(#register.active) .dropdown-content a:hover {
+  color: var(--accent-color) !important;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ========== SEARCH INPUT COLOR ON WHITE PAGES ========== */
+body:has(#properties.active) .nav-search-input,
+body:has(#dashboard.active) .nav-search-input,
+body:has(#login.active) .nav-search-input,
+body:has(#register.active) .nav-search-input {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+}
+
+body:has(#properties.active) .nav-search-input::placeholder,
+body:has(#dashboard.active) .nav-search-input::placeholder,
+body:has(#login.active) .nav-search-input::placeholder,
+body:has(#register.active) .nav-search-input::placeholder {
+  color: rgba(11, 36, 57, 0.5);
+}
+
+body:has(#properties.active) .nav-search-wrap.open .nav-search-input,
+body:has(#dashboard.active) .nav-search-wrap.open .nav-search-input,
+body:has(#login.active) .nav-search-wrap.open .nav-search-input,
+body:has(#register.active) .nav-search-wrap.open .nav-search-input {
+  border-bottom-color: var(--primary-color);
+}
+
+/* Hamburger icon color on white pages - make black */
+  body:has(#properties.active) .hamburger span,
+  body:has(#dashboard.active) .hamburger span,
+  body:has(#login.active) .hamburger span,
+  body:has(#register.active) .hamburger span {
+    background: var(--primary-color) !important;
+  }
+
+    /* Hamburger icon in white pages - make white when menu is open (X icon) */
+  body:has(#properties.active) .hamburger.active span,
+  body:has(#dashboard.active) .hamburger.active span,
+  body:has(#login.active) .hamburger.active span,
+  body:has(#register.active) .hamburger.active span {
+    background: white !important;
+  }
+
+
+
+  /* Fix search input color on white background pages */
+body:has(#properties.active) .nav-search-input,
+body:has(#dashboard.active) .nav-search-input,
+body:has(#login.active) .nav-search-input,
+body:has(#register.active) .nav-search-input {
+  color: var(--primary-color) !important;
+  border-bottom-color: var(--primary-color) !important;
+}
+
+body:has(#properties.active) .nav-search-input::placeholder,
+body:has(#dashboard.active) .nav-search-input::placeholder,
+body:has(#login.active) .nav-search-input::placeholder,
+body:has(#register.active) .nav-search-input::placeholder {
+  color: var(--primary-color) !important;
+  opacity: 0.6;
+}
+
+body:has(#properties.active) .nav-search-icon,
+body:has(#dashboard.active) .nav-search-icon,
+body:has(#login.active) .nav-search-icon,
+body:has(#register.active) .nav-search-icon {
+  color: var(--primary-color) !important;
+}
+
+body:has(#properties.active) .nav-search-icon:hover,
+body:has(#dashboard.active) .nav-search-icon:hover,
+body:has(#login.active) .nav-search-icon:hover,
+body:has(#register.active) .nav-search-icon:hover {
+  color: var(--accent-color) !important;
+}
+
+/* When navbar is scrolled on these pages */
+body:has(#properties.active) .sticky-nav.scrolled .nav-search-input,
+body:has(#dashboard.active) .sticky-nav.scrolled .nav-search-input {
+  color: white !important;
+  border-bottom-color: white !important;
+}
+
+body:has(#properties.active) .sticky-nav.scrolled .nav-search-input::placeholder,
+body:has(#dashboard.active) .sticky-nav.scrolled .nav-search-input::placeholder {
+  color: rgba(255,255,255,0.7) !important;
+}
+
+body:has(#properties.active) .sticky-nav.scrolled .nav-search-icon,
+body:has(#dashboard.active) .sticky-nav.scrolled .nav-search-icon {
+  color: white !important;
+}
+
+/* Fix hamburger visibility on scrolled navbar */
+@media (max-width: 768px) {
+  .sticky-nav.scrolled .hamburger span {
+    background: white !important;
+  }
+  
+  body:has(#properties.active) .sticky-nav.scrolled .hamburger span,
+  body:has(#dashboard.active) .sticky-nav.scrolled .hamburger span {
+    background: white !important;
+  }
+}
+
+/* Fix search icon color on login/register pages */
+body:has(#login.active) .nav-search-icon,
+body:has(#register.active) .nav-search-icon {
+  color: var(--primary-color) !important;
+}
+
+body:has(#login.active) .nav-search-icon:hover,
+body:has(#register.active) .nav-search-icon:hover {
+  color: var(--accent-color) !important;
+}
+
+body:has(#login.active) .sticky-nav.scrolled .nav-search-icon,
+body:has(#register.active) .sticky-nav.scrolled .nav-search-icon {
+  color: white !important;
+}
+
+/* Fix hamburger menu search icon on mobile for all pages */
+@media (max-width: 768px) {
+  nav.active .nav-search-icon {
+    color: white !important;
+  }
+  
+  nav.active .nav-search-icon:hover {
+    color: var(--accent-color) !important;
+  }
+  
+  /* Fix search input in mobile menu */
+  nav.active .nav-search-input {
+    color: white !important;
+    border-bottom-color: white !important;
+  }
+  
+  nav.active .nav-search-input::placeholder {
+    color: rgba(255,255,255,0.6) !important;
+  }
+}
+
+/* Fix search visibility when navbar is scrolled on mobile */
+@media (max-width: 768px) {
+  .sticky-nav.scrolled .nav-search-icon {
+    color: white !important;
+  }
+  
+  body:has(#login.active) .sticky-nav.scrolled .nav-search-icon,
+  body:has(#register.active) .sticky-nav.scrolled .nav-search-icon {
+    color: white !important;
+  }
+}
+
+/* FORCE search icon visibility on all pages */
+.nav-search-icon {
+  color: white !important;
+}
+
+/* On login/register pages - make icon dark */
+body:has(#login.active) .nav-search-icon,
+body:has(#register.active) .nav-search-icon {
+  color: var(--primary-color) !important;
+}
+
+/* On scrolled navbar - make icon white */
+.sticky-nav.scrolled .nav-search-icon {
+  color: white !important;
+}
+
+/* Mobile hamburger menu - force white */
+@media (max-width: 768px) {
+  nav.active .nav-search-icon {
+    color: white !important;
+  }
+  
+  /* Search input in mobile menu */
+  nav.active .nav-search-input {
+    color: white !important;
+    border-bottom-color: white !important;
+  }
+  
+  nav.active .nav-search-input::placeholder {
+    color: rgba(255,255,255,0.7) !important;
+  }
+}
+
+/* Search input color */
+.nav-search-input {
+  color: white !important;
+  border-bottom-color: white !important;
+}
+
+.nav-search-input::placeholder {
+  color: rgba(255,255,255,0.6) !important;
+}
+
+/* On login/register pages - input dark */
+body:has(#login.active) .nav-search-input,
+body:has(#register.active) .nav-search-input {
+  color: var(--primary-color) !important;
+  border-bottom-color: var(--primary-color) !important;
+}
+
+body:has(#login.active) .nav-search-input::placeholder,
+body:has(#register.active) .nav-search-input::placeholder {
+  color: var(--primary-color) !important;
+  opacity: 0.5;
+}
+
+/* On scrolled navbar - input white */
+.sticky-nav.scrolled .nav-search-input {
+  color: white !important;
+  border-bottom-color: white !important;
+}
+
+
+
